@@ -5,25 +5,19 @@ class Solution(object):
         :rtype: bool
         """
         openBrackets = {
-            '(': ')',
-            '{': '}',
-            '[': ']'
+            ')': '(',
+            '}': '{',
+            ']': '['
         }
-        bracketsCount = {
-            '(': 0,
-            '{': 0,
-            '[': 0
-        }
-        values = openBrackets.values()
-        keys = openBrackets.keys()
-        
+        stack = []
         for i in range(len(s)):
-          if s[i] in openBrackets:
-            bracketsCount[s[i]] += 1
           if s[i] in openBrackets.values():
-            key = [k for k, v in openBrackets.items() if v == s[i]]
-            bracketsCount[key[0]] -= 1
-        for b in bracketsCount:
-          if bracketsCount[b] > 0:
-            return False
+            stack.append(s[i])
+          elif s[i] in openBrackets:
+            if stack and openBrackets[s[i]] == stack.pop():
+              True
+            else:
+              return False
+        if stack:
+          return False
         return True
