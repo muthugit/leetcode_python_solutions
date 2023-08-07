@@ -5,6 +5,8 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
+        outs = []
         for i in range(len(nums)):
-            if nums[i] + nums[i+1] == target:
-                return [i, i+1]
+            diff = target - nums[i]
+            if diff in nums and nums.index(diff) != i:
+                return [i, nums.index(diff)]
